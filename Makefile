@@ -13,10 +13,11 @@ LOCALEDIR     = locale
 LANG          = en_US.UTF-8
 MAKE          = make
 
-default: html
+default: zh
 
 view:
 	xdg-open "$(BUILDDIR)/html/index.html"
+	xdg-open "$(BUILDDIR)/latex/sphinx.pdf"
 
 zh:
 	$(MAKE) html
@@ -34,7 +35,7 @@ en:
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-.PHONY: default view help zh en po
+.PHONY: default view help zh en po Makefile
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).

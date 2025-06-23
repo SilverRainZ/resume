@@ -8,11 +8,6 @@ project = '张盛宇的简历'
 author = '张盛宇'
 copyright = '2025, ' + author
 
-# -- Non-standard project information ----------------------------------------
-
-description = '张盛宇的简历'
-datefmt = '%Y-%m-%d'
-
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
@@ -40,7 +35,6 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'README.rst']
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
 language = 'zh_CN'
-language_full = '简体中文'
 
 # Directories in which to search for additional message catalogs (see language),
 # relative to the source directory. The directories on this path are
@@ -85,11 +79,7 @@ html_theme_options['show_prev_next'] = False,
 html_theme_options['footer_start'] = ['theme-switcher'] # TODO: 'version-switcher'
 html_theme_options['footer_end'] = ['copyright', 'last-updated', 'sphinx-version', 'theme-version']
 
-html_last_updated_fmt = datefmt
-
-# A list of paths that contain extra files not directly related to the
-# documentation.
-html_extra_path = ['robots.txt']
+html_last_updated_fmt = '%Y-%m-%d'
 
 # -- Options for LaTeX output -------------------------------------------------
 
@@ -105,7 +95,7 @@ latex_elements = {
 
     'maketitle': r'''
             \title{
-                \textbf{Shengyu Zhang}
+                \textbf{@AUTHOR_PLACEHOLDER@}
                 \vspace{-1em}
             }
             \author{\vspace{-2em}}
@@ -121,3 +111,13 @@ latex_elements = {
 
 extensions.append('sphinxcontrib.gtagjs')
 gtagjs_ids = ['G-FYHS50G6DL']
+
+def setup(app):
+    # Setup PDF title according to language.
+    titles = {
+        'zh_CN': author,
+        'en': 'Shengyu Zhang',
+    }
+    placeholder = '@AUTHOR_PLACEHOLDER@'
+    title = titles[app.config.language]
+    app.config.latex_elements['maketitle'] = latex_elements['maketitle'].replace(placeholder, title)
