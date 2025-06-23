@@ -112,6 +112,9 @@ latex_elements = {
 extensions.append('sphinxcontrib.gtagjs')
 gtagjs_ids = ['G-FYHS50G6DL']
 
+extensions.append('sphinxnotes.snippet')
+snippet_patterns = { 'd': ['.*'] }
+
 def setup(app):
     # Setup PDF title according to language.
     titles = {
