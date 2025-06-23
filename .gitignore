@@ -1,0 +1,9 @@
+# Python
+__pycache__
+
+# Sphinx
+_build/
+_cache/
+
+# Sphinx-intl
+*.mo
