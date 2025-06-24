@@ -2,9 +2,7 @@ name: Publish Github Pages
 
 on:
   push:
-    branches: [master]
-    paths-ignore:
-      - .github/workflows/gitee-pages.yml
+    branches: [master, ci]
 
 # Cancel any in-progress job or run
 # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#concurrency
@@ -14,10 +12,18 @@ concurrency:
 
 jobs:
   pages:
+    strategy:
+      matrix:
+        language: ['zh_CN', 'en']
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.version }}
+
     runs-on: ubuntu-latest
     environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      name: github-pages-${{ matrix.language }}
+      url: ${{ steps.deployment.outputs.page_url }}/${{ matrix.language }}
     # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
     permissions:
       pages: write
@@ -32,3 +38,4 @@ jobs:
         documentation_path: .
         requirements_path: ./requirements.txt
         python_version: 3.12
+        sphinx_build_options: -Dlanguage=${{ matrix.language }}
