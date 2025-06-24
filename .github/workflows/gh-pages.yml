@@ -15,11 +15,6 @@ jobs:
     strategy:
       matrix:
         language: ['zh_CN', 'en']
-    steps:
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.version }}
-
     runs-on: ubuntu-latest
     environment:
       name: github-pages-${{ matrix.language }}
